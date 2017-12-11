@@ -123,23 +123,22 @@ class zabbix::repo (
             ''      => "http://repo.zabbix.com/zabbix/${zabbix_version}/${operatingsystem}/",
             default => $repo_location,
           }
-
-          apt::key { 'zabbix-FBABD5F':
-            id     => 'FBABD5FB20255ECAB22EE194D13D58E479EA5ED4',
-            source => 'https://repo.zabbix.com/zabbix-official-repo.key',
-          }
-          apt::key { 'zabbix-A1848F5':
-            id     => 'A1848F5352D022B9471D83D0082AB56BA14FE591',
-            source => 'https://repo.zabbix.com/zabbix-official-repo.key',
-          }
+          # apt::key { 'zabbix-FBABD5F':
+          #   id     => 'FBABD5FB20255ECAB22EE194D13D58E479EA5ED4',
+          #   source => 'https://repo.zabbix.com/zabbix-official-repo.key',
+          # }
+          # apt::key { 'zabbix-A1848F5':
+          #   id     => 'A1848F5352D022B9471D83D0082AB56BA14FE591',
+          #   source => 'https://repo.zabbix.com/zabbix-official-repo.key',
+          # }
           apt::source { 'zabbix':
             location => $_repo_location,
             repos    => 'main',
             release  => $releasename,
-            require  => [
-              Apt_key['zabbix-FBABD5F'],
-              Apt_key['zabbix-A1848F5'],
-            ],
+            key      => {
+              'id'      => 'FBABD5FB20255ECAB22EE194D13D58E479EA5ED4',
+              'content' => file('zabbix/apt-key.gpg'),
+            },
           }
         }
         Apt::Source['zabbix'] -> Package<|tag == 'zabbix'|>
