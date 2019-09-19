@@ -152,7 +152,7 @@
 # Set location of client key used by LDAP authentication.
 #
 # [*ldap_reqcert *]
-# Specifies what checks to perform on a server certificate 
+# Specifies what checks to perform on a server certificate
 #
 # [*puppetgem*]
 # Provider for the zabbixapi gem package
@@ -286,7 +286,7 @@ class zabbix::web (
         $zabbixapi_version = '3.2.1'
       }
       default : {
-        $zabbixapi_version = '4.0.0'
+        $zabbixapi_version = '4.1.1'
       }
     }
 
